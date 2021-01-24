@@ -1,5 +1,6 @@
 package com.sistemabancario.model;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -86,5 +87,54 @@ public class ContaTest {
         
         final double obtido = instance.getSaldoTotal();
         assertEquals(esperado, obtido, 0.001);
+    }
+    
+    @Test
+    void testDepositoDinheiroCredito(){
+        final char esperado = 'C';
+        final Movimentacao instance = new Movimentacao(new Conta());
+        instance.setTipo('C');
+        
+        final char obtido = instance.getTipo();
+        
+        assertEquals(esperado, obtido);
+    }
+    
+    @Test
+    void testDepositoDinheiroConfirmado(){
+        final boolean esperado = true;
+        final Movimentacao instance = new Movimentacao(new Conta());
+        instance.setConfirmada(true);
+        
+        final boolean obtido = instance.isConfirmada();
+        
+        assertEquals(esperado, obtido);
+    }
+    
+    @Test
+    void testDepositoDinheiroConfirmarValor(){
+        final double esperado = 500;
+        final Movimentacao instance = new Movimentacao(new Conta());
+        
+        instance.setValor(esperado);
+        
+        final double obtido = instance.getValor();
+        
+        assertEquals(esperado, obtido);
+    }
+    
+    @Test
+    void testDepositoDinheiroMovimentacoes(){
+        final double limite = 500, deposito = 500;
+        final Conta instance = new Conta();
+        instance.setEspecial(true);
+        instance.setLimite(limite);
+        instance.depositoDinheiro(deposito);
+        
+        final List<Movimentacao> obtido = instance.getMovimentacoes();
+        
+        assertNotNull(obtido);
+        
+        //assertEquals(esperado, obtido);
     }
 }
